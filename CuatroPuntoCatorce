@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class AscensorSimulador {
+    public static void main(String[] args) {
+        Scanner leer = new Scanner(System.in);
+
+        System.out.println("Ingrese el número de piso (1 al 25):");
+        int piso = leer.nextInt();
+
+        switch (piso) {
+            case 1:
+                System.out.println("Solo botón SUBIR");
+                break;
+            case 25:
+                System.out.println("Solo botón BAJAR");
+                break;
+            default:
+                if (piso >= 2 && piso <= 24) {
+                    System.out.println("Botones disponibles: SUBIR y BAJAR");
+                } else {
+                    System.out.println("Piso fuera de rango, ingrese un valor entre 1 y 25.");
+                }
+                break;
+        }
+        leer.close();
+    }
+}
