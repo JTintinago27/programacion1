@@ -1,0 +1,11 @@
+public class CincoPuntoTrece {
+    public static void main(String[] args) {
+        int suma = 0;
+
+        for (int num = 2; num <= 100; num += 2) {
+            suma += num;
+        }
+
+        System.out.println("La suma de los pares hasta 100 es: " + suma);
+    }
+}
