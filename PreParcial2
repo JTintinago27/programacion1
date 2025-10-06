@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class PreParcial2 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         ArrayList<Integer> numeros = new ArrayList<>();
         int[] usoOpciones = new int[4]; // Contador de cada opción del menú
         boolean salir = false;
@@ -16,13 +16,13 @@ public class PreParcial2 {
             System.out.println("3. Reiniciar datos");
             System.out.println("4. Salir");
             System.out.print("Seleccione una opción: ");
-            int opcion = scanner.nextInt();
+            int opcion = sc.nextInt();
 
             switch (opcion) {
                 case 1: // Ingresar número
                     usoOpciones[0]++;
                     System.out.print("Ingrese un número entero positivo: ");
-                    int num = scanner.nextInt();
+                    int num = sc.nextInt();
                     if (num > 0) {
                         if (numeros.size() < 100) {
                             numeros.add(num);
