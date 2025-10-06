@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class Ejercicio57_v2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char letra = ' ';
+
+        System.out.print("Ingrese una letra: ");
+        letra = sc.next().toLowerCase().charAt(0);
+
+        while (letra != 'a' && letra != 'e' && letra != 'i' && letra != 'o' && letra != 'u') {
+            System.out.print("No es vocal. Ingrese otra letra: ");
+            letra = sc.next().toLowerCase().charAt(0);
+        }
+
+        System.out.println("Primera vocal encontrada: " + letra);
+        sc.close();
+    }
+}
