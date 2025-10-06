@@ -1,121 +1,102 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class PreParcial2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> numeros = new ArrayList<>();
-        int[] usoOpciones = new int[4]; // Contador de cada opción del menú
-        boolean salir = false;
+        int opcion;
+        int totalNumeros = 0;
+        int pares = 0;
+        int impares = 0;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        int sumaTotal = 0;
+        int cantidadPrimos = 0;
+        int sumaDigitosUltimo = 0;
 
         do {
-            System.out.println("--- Menú Torneo de Números ---");
-            System.out.println("1. Ingresar número");
-            System.out.println("2. Ver estadísticas");
+            System.out.println("Menu:");
+            System.out.println("1. Ingresar numero");
+            System.out.println("2. Ver estadisticas");
             System.out.println("3. Reiniciar datos");
             System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
-            int opcion = sc.nextInt();
+            System.out.print("Seleccione una opcion: ");
+            opcion = sc.nextInt();
 
             switch (opcion) {
-                case 1: // Ingresar número
-                    usoOpciones[0]++;
-                    System.out.print("Ingrese un número entero positivo: ");
+                case 1:
+                    System.out.print("Ingrese un numero entero positivo: ");
                     int num = sc.nextInt();
                     if (num > 0) {
-                        if (numeros.size() < 100) {
-                            numeros.add(num);
-                            System.out.println("Número guardado correctamente.");
-                        } else {
-                            System.out.println("Se alcanzó el máximo permitido de números (100).");
-                        }
+                        totalNumeros++;
+                        sumaTotal += num;
+                        if (num % 2 == 0) pares++;
+                        else impares++;
+
+                        if (num > max) max = num;
+                        if (num < min) min = num;
+
+                        if (esPrimo(num)) cantidadPrimos++;
+                        sumaDigitosUltimo = sumaDigitos(num);
                     } else {
-                        System.out.println("Error: solo se permiten números enteros positivos.");
+                        System.out.println("Error: El numero debe ser entero positivo");
                     }
                     break;
-                case 2: // Ver estadísticas
-                    usoOpciones[1]++;
-                    mostrarEstadisticas(numeros);
+
+                case 2:
+                    if (totalNumeros == 0) {
+                        System.out.println("No hay datos para mostrar.");
+                    } else {
+                        System.out.println("Total de numeros ingresados: " + totalNumeros);
+                        System.out.println("Cantidad de pares: " + pares);
+                        System.out.println("Cantidad de impares: " + impares);
+                        System.out.println("Numero maximo: " + max);
+                        System.out.println("Numero minimo: " + min);
+                        System.out.println("Suma total: " + sumaTotal);
+                        System.out.println("Promedio: " + ((double) sumaTotal / totalNumeros));
+                        System.out.println("Cantidad de numeros primos: " + cantidadPrimos);
+                        System.out.println("Suma de digitos del ultimo numero ingresado: " + sumaDigitosUltimo);
+                    }
                     break;
-                case 3: // Reiniciar datos
-                    usoOpciones[2]++;
-                    numeros.clear();
-                    System.out.println("Datos y estadísticas reiniciados.");
+
+                case 3:
+                    totalNumeros = 0;
+                    pares = 0;
+                    impares = 0;
+                    max = Integer.MIN_VALUE;
+                    min = Integer.MAX_VALUE;
+                    sumaTotal = 0;
+                    cantidadPrimos = 0;
+                    sumaDigitosUltimo = 0;
+                    System.out.println("Datos reiniciados.");
                     break;
-                case 4: // Salir
-                    usoOpciones[3]++;
-                    salir = true;
+
+                case 4:
+                    System.out.println("Saliendo del programa.");
                     break;
+
                 default:
-                    System.out.println("Opción no válida.");
+                    System.out.println("Opcion invalida.");
             }
-        } while (!salir);
 
-        // Mostrar registro de uso de opciones
-        System.out.println("--- Resumen de uso de opciones ---");
-        System.out.println("Ingresar número: " + usoOpciones[0] + " veces");
-        System.out.println("Ver estadísticas: " + usoOpciones[1] + " veces");
-        System.out.println("Reiniciar datos: " + usoOpciones[2] + " veces");
-        System.out.println("Salir: " + usoOpciones[3] + " veces");
+        } while (opcion != 4);
+
+        sc.close();
     }
 
-    // Función para mostrar estadísticas
-    public static void mostrarEstadisticas(ArrayList<Integer> numeros) {
-        if (numeros.isEmpty()) {
-            System.out.println("No se han ingresado números.");
-            return;
-        }
-        int pares = 0, impares = 0, suma = 0, primos = 0;
-        int max = Collections.max(numeros);
-        int min = Collections.min(numeros);
-
-        for (int n : numeros) {
-            suma += n;
-            if (n % 2 == 0) pares++;
-            else impares++;
-            if (esPrimo(n)) primos++;
-        }
-
-        int ultimo = numeros.get(numeros.size() - 1);
-        int sumaDigitosUltimo = sumaDigitos(ultimo);
-
-        System.out.println("--- Estadísticas ---");
-        System.out.println("Total de números ingresados: " + numeros.size());
-        System.out.println("Cantidad de pares: " + pares);
-        System.out.println("Cantidad de impares: " + impares);
-        System.out.println("Número máximo: " + max);
-        System.out.println("Número mínimo: " + min);
-        System.out.println("Suma total: " + suma);
-        System.out.println("Promedio: " + (suma / (double)numeros.size()));
-        System.out.println("Cantidad de números primos: " + primos);
-        System.out.println("Suma de los dígitos del último número: " + sumaDigitosUltimo);
-        System.out.println("Números almacenados (ordenados): " + numerosOrdenados(numeros));
-    }
-
-    // Verifica si un número es primo
-    public static boolean esPrimo(int num) {
-        if (num < 2) return false;
-        for (int i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i == 0) return false;
+    private static boolean esPrimo(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
         }
         return true;
     }
 
-    // Suma los dígitos de un número
-    public static int sumaDigitos(int n) {
+    private static int sumaDigitos(int n) {
         int suma = 0;
         while (n > 0) {
             suma += n % 10;
             n /= 10;
         }
         return suma;
-    }
-
-    // Devuelve una copia ordenada de los números ingresados
-    public static ArrayList<Integer> numerosOrdenados(ArrayList<Integer> lista) {
-        ArrayList<Integer> copia = new ArrayList<>(lista);
-        Collections.sort(copia);
-        return copia;
     }
 }
