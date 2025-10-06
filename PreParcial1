@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class PreParcial1 {
+    public static void main(String[] args) {
+        final int CLAVE = 1234;
+        final int SALDO_INICIAL = 800000;
+        Scanner scanner = new Scanner(System.in);
+        int saldo = SALDO_INICIAL;
+
+        System.out.print("Digite por favor la clave: ");
+        int claveUsuario = scanner.nextInt();
+
+        if (claveUsuario == CLAVE) {
+            System.out.println("Bienvenido al cajero de la UNIAJC");
+            System.out.print("Digite la cantidad a retirar: ");
+            int retiro = scanner.nextInt();
+            int costoTransaccion = 0;
+
+            if (retiro > 200000) {
+                costoTransaccion = 2000;
+            }
+
+            if (retiro > 0 && (retiro + costoTransaccion) <= saldo) {
+                saldo = saldo - retiro - costoTransaccion;
+                System.out.println("Su saldo actual es: " + saldo + " Muchas Gracias!!!!");
+            } else if ((retiro + costoTransaccion) > saldo) {
+                System.out.println("El valor solicitado más el costo de la transacción es mayor al saldo.");
+            } else {
+                System.out.println("El valor solicitado no es válido.");
+            }
+        } else {
+            System.out.println("Su clave no es correcta...intenta nuevamente....");
+        }
+        scanner.close();
+    }
+}
