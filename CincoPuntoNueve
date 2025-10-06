@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class CincoPuntoNueve {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char respuesta;
+
+        while (true) {
+            System.out.print("¿Desea continuar? (S/N): ");
+            respuesta = sc.next().toUpperCase().charAt(0);
+
+            if (respuesta == 'S' || respuesta == 'N') {
+                break; // sale del bucle
+            } else {
+                System.out.println("Respuesta no válida, intente de nuevo.");
+            }
+        }
+
+        System.out.println("Respuesta aceptada: " + respuesta);
+        sc.close();
+    }
+}
